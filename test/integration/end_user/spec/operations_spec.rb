@@ -1,0 +1,54 @@
+require_relative './spec_helper'
+require 'English'
+require 'open3'
+
+context 'operations' do
+
+  before :all do
+    generate_idefiles()
+  end
+
+  after :all do
+    rm_idefiles()
+  end
+
+  context 'when full identity' do
+    it 'is correctly initialized; pwd shows /ide/work' do
+      cmd = "cd #{test_ide_work} && ide \"pwd && whoami\""
+
+      output, exit_status = run_cmd(cmd)
+
+      expect(output).to include('ide init finished')
+      expect(output).to include('/ide/work')
+      expect(output).to include('ide')
+      expect(output).to include('kubernetes-ide')
+      expect(output).not_to include('root')
+      expect(exit_status).to eq 0
+    end
+    it 'correct kubectl version is installed' do
+      cmd = "cd #{test_ide_work} && ide \"kubectl version\""
+
+      output, exit_status = run_cmd(cmd)
+
+      expect(output).to include('1.5.0-beta.3')
+      expect(exit_status).to eq 0
+    end
+    it 'Remote Kubernetes cluster is accessible' do
+      cmd = "cd #{test_ide_work} && ide \"kubectl cluster-info\""
+
+      output, exit_status = run_cmd(cmd)
+
+      expect(output).to include('Kubernetes master')
+      expect(output).to include('http://k8s.ai-traders.com:8080')
+      expect(exit_status).to eq 0
+    end
+    it 'ssh client is installed' do
+      cmd = "cd #{test_ide_work} && ide \"ssh\""
+
+      output, exit_status = run_cmd(cmd)
+
+      expect(output).to include('usage: ssh')
+      expect(exit_status).to eq 255
+    end
+  end
+end
