@@ -1,10 +1,10 @@
 pipelines:
-  docker-kubernetes-ide:
+  docker-k8s-ide:
     group: platform
     label_template: "${git[:8]}"
     materials:
       git:
-        git: "git@git.ai-traders.com:platform/docker-kubernetes-ide.git"
+        git: "git@git.ai-traders.com:platform/docker-k8s-ide.git"
         branch: ci
     stages:
       - style_unit:

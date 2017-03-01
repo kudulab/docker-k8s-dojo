@@ -5,5 +5,5 @@
 # copied into ideide docker image.
 ###########################################################################
 
-export this_image_name="kubernetes-ide"
+export this_image_name="k8s-ide"
 export this_image_tag="IMAGE_VERSION"

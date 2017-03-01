@@ -1,4 +1,4 @@
-FROM kubernetes-ide_configs:temp
+FROM k8s-ide_configs:temp
 
 # this must be the same as used by infra-kubernetes
 ENV KUBERNETES_VERSION=1.5.3

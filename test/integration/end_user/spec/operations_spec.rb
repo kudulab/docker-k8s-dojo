@@ -21,7 +21,7 @@ context 'operations' do
       expect(output).to include('ide init finished')
       expect(output).to include('/ide/work')
       expect(output).to include('ide')
-      expect(output).to include('kubernetes-ide')
+      expect(output).to include('k8s-ide')
       expect(output).not_to include('root')
       expect(exit_status).to eq 0
     end

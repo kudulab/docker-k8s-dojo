@@ -4,7 +4,7 @@ require 'dockerimagerake'
 require 'kitchen'
 
 image_dir = File.expand_path("#{File.dirname(__FILE__)}/image")
-image_name = 'docker-registry.ai-traders.com/kubernetes-ide'
+image_name = 'docker-registry.ai-traders.com/k8s-ide'
 ide_version = '0.6.0'
 
 # This can be easily done in bash
@@ -24,7 +24,7 @@ end
 desc 'Builds docker image using correct base image and installs ide configs'
 task :build_configs_image do
   Dir.chdir(image_dir) do
-    Rake.sh('docker build -t kubernetes-ide_configs:temp -f Dockerfile_ide_configs .')
+    Rake.sh('docker build -t k8s-ide_configs:temp -f Dockerfile_ide_configs .')
   end
 end
 task build_configs_image: [:save_version]

@@ -1,4 +1,4 @@
-# docker-kubernetes-ide
+# docker-k8s-ide
 
 Produces IDE docker image with kubectl installed.
 Based on alpine docker image.
@@ -8,7 +8,7 @@ Based on alpine docker image.
 2. Provide an Idefile:
 ```
 K8S_ENDPOINT=http://10.1.1.123:8080 # defaults to http://k8s.ai-traders.com:8080
-IDE_DOCKER_IMAGE="docker-registry.ai-traders.com/kubernetes-ide:0.2.0"
+IDE_DOCKER_IMAGE="docker-registry.ai-traders.com/k8s-ide:0.2.0"
 ```
 3. Run, example commands:
 ```bash

@@ -17,12 +17,12 @@ platforms:
     driver_config:
       dockerfile: KitchenDockerfile
       command:  -c '/bin/bash'
-      image: kubernetes-ide_configs:temp
+      image: k8s-ide_configs:temp
 
 suites:
   - name: configs
     driver_config:
-      container_name: kt-kubernetes-ide-conf
+      container_name: kt-k8s-ide-conf
       volume:
         - <%= File.dirname(__FILE__) %>/test/integration/dummy_work:/ide/work
         - <%= File.dirname(__FILE__) %>/test/integration/identities/full:/ide/identity
