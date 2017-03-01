@@ -33,7 +33,7 @@ IdentityFile ${ide_home}/.ssh/id_rsa
 
 Host gogs.ai-traders.com
 User git
-Port 30022
+Port 2222
 IdentityFile ${ide_home}/.ssh/id_rsa
 
 Host gitlab.ai-traders.com

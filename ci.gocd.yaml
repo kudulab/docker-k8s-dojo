@@ -21,7 +21,7 @@ pipelines:
                 - docker
                 - small
               tasks:
-                - script: ide "bundle install && bundle exec rake go:style:repocritic"
+                - script: ide "bundle install && bundle exec rake style:repocritic"
             itest_configs:
               resources:
                 - docker
@@ -78,7 +78,7 @@ pipelines:
                 - docker
                 - small
               tasks:
-                - script: ide "bundle install && bundle exec rake go:release:code"
+                - script: ide "bundle install && bundle exec rake release:code"
       - publish:
           clean_workspace: true
           jobs:
@@ -94,4 +94,4 @@ pipelines:
                     source: imagerc
                     destination: image/
                 # imagerc file is sourced by dockerimagerake
-                - script: ide "bundle install && bundle exec rake go:publish:image"
+                - script: ide "bundle install && bundle exec rake publish:image"

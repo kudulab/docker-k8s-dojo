@@ -30,7 +30,7 @@ context 'operations' do
 
       output, exit_status = run_cmd(cmd)
 
-      expect(output).to include('1.5.0-beta.3')
+      expect(output).to include('1.5.3')
       expect(exit_status).to eq 0
     end
     it 'Remote Kubernetes cluster is accessible' do
@@ -40,6 +40,14 @@ context 'operations' do
 
       expect(output).to include('Kubernetes master')
       expect(output).to include('http://k8s.ai-traders.com:8080')
+      expect(exit_status).to eq 0
+    end
+    it 'correct Helm version is installed' do
+      cmd = "cd #{test_ide_work} && ide \"helm version\""
+
+      output, exit_status = run_cmd(cmd)
+
+      expect(output).to include('2.2.1')
       expect(exit_status).to eq 0
     end
     it 'ssh client is installed' do

@@ -1,23 +1,26 @@
 # docker-kubernetes-ide
 
 Produces IDE docker image with kubectl installed.
-
 Based on alpine docker image.
 
 ## Usage
 1. Install [IDE](https://github.com/ai-traders/ide)
 2. Provide an Idefile:
 ```
-IDE_DOCKER_IMAGE="docker-registry.ai-traders.com/kubernetes-ide:0.1.0"
+K8S_ENDPOINT=http://10.1.1.123:8080 # defaults to http://k8s.ai-traders.com:8080
+IDE_DOCKER_IMAGE="docker-registry.ai-traders.com/kubernetes-ide:0.2.0"
 ```
 3. Run, example commands:
 ```bash
 kubectl version
 kubectl cluster-info
 kubectl get pod
+helm version
 ```
 
 By default, current directory in docker container is `/ide/work`.
+
+Main use case: to deploy services on top of k8s infrastructure.
 
 ### Configuration
 Those files are used inside gitide docker image:
