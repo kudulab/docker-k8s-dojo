@@ -1,3 +1,7 @@
+### 0.2.1 (2 Mar 2017)
+
+\#10646: initialize Helm as ide user (was as root)
+
 ### 0.2.0 (1 Mar 2017)
 
 \#10646:

@@ -20,4 +20,4 @@ RUN mkdir /tmp/kubernetes && cd /tmp/kubernetes &&\
 RUN mkdir -p /tmp/helm && cd /tmp/helm &&\
   wget -O helm.tar.gz --quiet https://kubernetes-helm.storage.googleapis.com/helm-v${HELM_VERSION}-linux-amd64.tar.gz &&\
   tar -xvf helm.tar.gz && mv ./linux-amd64/helm /usr/local/bin/ &&\
-  helm init --client-only
+  sudo -E -H -u ide /bin/bash -lc "helm init --client-only"

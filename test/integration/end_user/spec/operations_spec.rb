@@ -50,6 +50,14 @@ context 'operations' do
       expect(output).to include('2.2.1')
       expect(exit_status).to eq 0
     end
+    it 'Helm was correctly initialized' do
+      cmd = "cd #{test_ide_work} && ide \"ls -la /home/ide\""
+
+      output, exit_status = run_cmd(cmd)
+
+      expect(output).to include('.helm')
+      expect(exit_status).to eq 0
+    end
     it 'ssh client is installed' do
       cmd = "cd #{test_ide_work} && ide \"ssh\""
 
