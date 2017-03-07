@@ -21,7 +21,7 @@ context 'operations' do
       expect(output).to include('ide init finished')
       expect(output).to include('/ide/work')
       expect(output).to include('ide')
-      expect(output).to include('k8s-ide')
+      expect(output).to include('using k8s-ide')
       expect(output).not_to include('root')
       expect(exit_status).to eq 0
     end
@@ -47,7 +47,7 @@ context 'operations' do
 
       output, exit_status = run_cmd(cmd)
 
-      expect(output).to include('2.2.1')
+      expect(output).to include('2.2.2')
       expect(exit_status).to eq 0
     end
     it 'Helm was correctly initialized' do

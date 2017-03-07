@@ -1,3 +1,9 @@
+### 0.2.2 (7 Mar 2017)
+
+* \#10670 Install bash-completion for kubectl and helm
+* \#10672 Helm 2.2.2
+* \#10673 colorful bash prompt
+
 ### 0.2.1 (2 Mar 2017)
 
 \#10646: initialize Helm as ide user (was as root)
