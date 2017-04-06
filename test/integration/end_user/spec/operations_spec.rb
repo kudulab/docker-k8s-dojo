@@ -47,7 +47,7 @@ context 'operations' do
 
       output, exit_status = run_cmd(cmd)
 
-      expect(output).to include('2.2.2')
+      expect(output).to include('2.2.3')
       expect(exit_status).to eq 0
     end
     it 'Helm was correctly initialized' do

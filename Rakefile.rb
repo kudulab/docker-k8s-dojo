@@ -5,7 +5,7 @@ require 'kitchen'
 
 image_dir = File.expand_path("#{File.dirname(__FILE__)}/image")
 image_name = 'docker-registry.ai-traders.com/k8s-ide'
-ide_version = '0.6.0'
+ide_version = '0.7.2'
 
 # This can be easily done in bash
 desc 'Gets next_version from Consul and saves to version file'

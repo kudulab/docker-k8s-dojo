@@ -2,7 +2,7 @@ FROM k8s-ide_configs:temp
 
 # this must be the same as used by infra-kubernetes
 ENV KUBERNETES_VERSION=1.5.3
-ENV HELM_VERSION=2.2.2
+ENV HELM_VERSION=2.2.3
 
 # * wget, nano, openssh-client, curl, curl-dev are installed just in case
 # * ca-certificates are needed to wget helm tar.gz

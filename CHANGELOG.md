@@ -1,3 +1,7 @@
+### 0.2.3 (6 Apr 2017)
+
+* \#10814 Helm 2.2.3
+
 ### 0.2.2 (7 Mar 2017)
 
 * \#10670 Install bash-completion for kubectl and helm
