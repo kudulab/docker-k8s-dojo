@@ -1,12 +1,6 @@
-**/.kitchen
-**/imagerc*
-**/*.html
-**/real_identity/**
-**/dummy_work/**
-
-ide/work/bats/
-bats-support/
-bats-assert/
-
-# do not ignore those
-!**/dummy_work/.placeholder
+*.html
+releaser
+docker-ops
+imager*
+Idefile.to_be_tested
+Idefile.to_be_tested_configs

@@ -1,4 +1,4 @@
-FROM k8s-ide_configs:temp
+FROM docker-registry.ai-traders.com/k8s-ide:temp
 
 # this must be the same as used by infra-kubernetes
 ENV KUBERNETES_VERSION=1.5.3

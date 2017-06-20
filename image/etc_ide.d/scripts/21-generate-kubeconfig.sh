@@ -26,4 +26,4 @@ preferences: {}
 users: []
 EOF
 
-chown ide:ide -R /home/ide/.kube/
+chown ide:ide -R "${ide_home}/.kube/"

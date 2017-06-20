@@ -1,0 +1,93 @@
+pipelines:
+  docker-k8s-ide:
+    group: platform
+    label_template: "${git[:8]}"
+    materials:
+      git:
+        git: "git@git.ai-traders.com:platform/docker-k8s-ide.git"
+        branch: master
+        blacklist:
+          - "**/*.md"
+    stages:
+      - verify_version:
+          clean_workspace: true
+          jobs:
+            verify_version:
+              elastic_profile_id: w.c1.m1024.e5
+              tasks:
+               - exec:
+                  command: /bin/bash
+                  arguments:
+                    - -c
+                    - ./tasks verify_version
+      - test_configs:
+          clean_workspace: true
+          jobs:
+            docker_image:
+              elastic_profile_id: w.c1.m1024.e5
+              tasks:
+               - exec:
+                  command: /bin/bash
+                  arguments:
+                    - -c
+                    - ./tasks build_cfg && ./tasks test_cfg
+      - build:
+          clean_workspace: true
+          jobs:
+            docker_image:
+              elastic_profile_id: w.c1.m1024.e5
+              artifacts:
+                - build:
+                    source: image/imagerc
+                    destination:
+              tasks:
+               - exec:
+                  command: /bin/bash
+                  arguments:
+                    - -c
+                    - ./tasks build_cfg && ops_docker_push=true ./tasks build
+      - itest:
+          clean_workspace: true
+          jobs:
+            end_user:
+              elastic_profile_id: w.c1.m1024.e5
+              tasks:
+                - fetch:
+                    stage: build
+                    job: docker_image
+                    is_file: yes
+                    source: imagerc
+                    destination: image/
+                - exec:
+                    command: /bin/bash
+                    arguments:
+                      - -c
+                      - ./tasks itest
+      - release:
+          clean_workspace: true
+          jobs:
+            code:
+              elastic_profile_id: w.c1.m1024.e5
+              tasks:
+                - exec:
+                    command: /bin/bash
+                    arguments:
+                      - -c
+                      - ./tasks release
+      - publish:
+          clean_workspace: true
+          jobs:
+            docker_image:
+              elastic_profile_id: w.c1.m1024.e5
+              tasks:
+                - fetch:
+                    stage: build
+                    job: docker_image
+                    is_file: yes
+                    source: imagerc
+                    destination: image/
+                - exec:
+                    command: /bin/bash
+                    arguments:
+                      - -c
+                      - ./tasks publish

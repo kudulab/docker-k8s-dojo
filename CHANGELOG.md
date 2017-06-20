@@ -1,3 +1,10 @@
+### 0.2.4 (2017-Jun-20)
+
+* dev
+  * do not use ruby, use releaser and docker-ops
+  * use ide configs from ide 0.8.2
+  * GoCD pipeline with elastic_profile_id
+
 ### 0.2.3 (6 Apr 2017)
 
 * \#10814 Helm 2.2.3
