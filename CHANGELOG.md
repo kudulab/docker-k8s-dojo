@@ -1,3 +1,7 @@
+### 0.3.1 (2017-Jul-02)
+
+* make the existence of ~/.ssh directory and secrets there optional #11289
+
 ### 0.3.0 (2017-Jun-21)
 
 * Kubernetes 1.6.6 #11219
