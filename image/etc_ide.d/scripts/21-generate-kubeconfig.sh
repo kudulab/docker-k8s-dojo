@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-K8S_ENDPOINT="${K8S_ENDPOINT:-http://k8s.ai-traders.com:8080}"
+export K8S_ENDPOINT="${K8S_ENDPOINT:-http://k8s.ai-traders.com:8080}"
 echo "Using K8S_ENDPOINT=${K8S_ENDPOINT}"
 
 mkdir -p "${ide_home}/.kube"

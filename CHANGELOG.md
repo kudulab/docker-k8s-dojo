@@ -1,4 +1,7 @@
+### 0.3.2 (2017-Jul-02)
+
 * make the existence of ~/.ssh directory and secrets there optional #11289
+* export K8S_ENDPOINT variable
 
 ### 0.3.1 (2017-Jul-02)
 
