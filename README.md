@@ -8,7 +8,7 @@ Based on alpine docker image.
 2. Provide an Idefile:
 ```
 K8S_ENDPOINT=http://10.1.1.123:8080 # defaults to http://k8s.ai-traders.com:8080
-IDE_DOCKER_IMAGE="docker-registry.ai-traders.com/k8s-ide:0.3.0"
+IDE_DOCKER_IMAGE="docker-registry.ai-traders.com/k8s-ide:0.3.3"
 ```
 3. Run, example commands:
 ```bash
@@ -34,6 +34,7 @@ Those files are used inside gitide docker image:
 
 The `~/.kube/config` file is provided.
 
+
 ## Development
 ### Dependencies
 * Bash
@@ -58,7 +59,7 @@ There are 2 Dockerfiles:
     * merge into master branch
     * run locally:
       * `./tasks set_version` to set version from OVersion to changelog
-      * or `./tasks bump 1.2.3` to bump to a particular version
+      * or `./tasks set_version 1.2.3` to bump to a particular version
         Version is bumped in Changelog, variables.sh file and OVersion backend
     * push to master onto private git server
 1. CI server (GoCD) tests and releases.

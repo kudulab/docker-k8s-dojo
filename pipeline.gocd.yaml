@@ -9,52 +9,40 @@ pipelines:
         blacklist:
           - "**/*.md"
     stages:
-      - verify_version:
-          clean_workspace: true
-          jobs:
-            verify_version:
-              elastic_profile_id: w.c1.m1024.e5
-              tasks:
-               - exec:
-                  command: /bin/bash
-                  arguments:
-                    - -c
-                    - ./tasks verify_version
-      - test_configs:
-          clean_workspace: true
-          jobs:
-            docker_image:
-              elastic_profile_id: w.c1.m1024.e5
-              tasks:
-               - exec:
-                  command: /bin/bash
-                  arguments:
-                    - -c
-                    - ./tasks build_cfg && ./tasks test_cfg
       - build:
           clean_workspace: true
           jobs:
-            docker_image:
+            build:
               elastic_profile_id: w.c1.m1024.e5
               artifacts:
                 - build:
                     source: image/imagerc
                     destination:
               tasks:
-               - exec:
-                  command: /bin/bash
-                  arguments:
-                    - -c
-                    - ./tasks build_cfg && ops_docker_push=true ./tasks build
+                - exec:
+                    command: /bin/bash
+                    arguments:
+                      - -c
+                      - ./tasks verify_version
+                - exec:
+                    command: /bin/bash
+                    arguments:
+                      - -c
+                      - ./tasks build_cfg && ./tasks test_cfg
+                - exec:
+                    command: /bin/bash
+                    arguments:
+                      - -c
+                      - ./tasks build_cfg && ops_docker_push=true ./tasks build
       - itest:
           clean_workspace: true
           jobs:
-            end_user:
+            itest:
               elastic_profile_id: w.c1.m1024.e5
               tasks:
                 - fetch:
                     stage: build
-                    job: docker_image
+                    job: build
                     is_file: yes
                     source: imagerc
                     destination: image/
@@ -82,7 +70,7 @@ pipelines:
               tasks:
                 - fetch:
                     stage: build
-                    job: docker_image
+                    job: build
                     is_file: yes
                     source: imagerc
                     destination: image/

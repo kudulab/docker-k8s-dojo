@@ -1,3 +1,8 @@
+### 0.3.3 (2017-Nov-17)
+
+* Helm 2.5.2 #11921
+* Kubernetes 1.6.12 #11921
+
 ### 0.3.2 (2017-Jul-02)
 
 * make the existence of ~/.ssh directory and secrets there optional #11289

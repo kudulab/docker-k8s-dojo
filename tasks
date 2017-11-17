@@ -2,11 +2,11 @@
 
 set -e
 if [[ ! -f ./releaser ]];then
-  wget --quiet http://http.archive.ai-traders.com/releaser/1.0.0/releaser
+  wget --quiet http://http.archive.ai-traders.com/releaser/1.0.3/releaser
 fi
 source ./releaser
 if [[ ! -f ./docker-ops ]];then
-  wget --quiet http://http.archive.ai-traders.com/docker-ops/0.2.2/docker-ops
+  wget --quiet http://http.archive.ai-traders.com/docker-ops/0.2.3/docker-ops
 fi
 source ./docker-ops
 # This goes as last in order to let end user variables override default values
@@ -19,27 +19,17 @@ tmp_image="${image_name}:temp"
 image_dir="./image"
 imagerc_filename="imagerc"
 
-function source_imagerc {
-  source "${image_dir}/${imagerc_filename}"
-  if [[ -z "AIT_DOCKER_IMAGE_NAME" ]]; then
-    echo "fail! AIT_DOCKER_IMAGE_NAME not set"
-    return 1
-  fi
-  if [[ -z "AIT_DOCKER_IMAGE_TAG" ]]; then
-    echo "fail! AIT_DOCKER_IMAGE_TAG not set"
-    return 1
-  fi
-}
-
 command="$1"
 case "${command}" in
   set_version)
-      next_version=$(get_next_oversion)
-      set_version_in_changelog "${changelog_file}" "${next_version}"
-      exit $?
-      ;;
-  bump)
-      bump_changelog_and_oversion "$2"
+      if [[ -n "$2" ]]; then
+        next_version="$2"
+        set_version_in_changelog "${changelog_file}" "${next_version}"
+        set_next_oversion "${next_version}"
+      else
+        next_version=$(get_next_oversion)
+        set_version_in_changelog "${changelog_file}" "${next_version}"
+      fi
       exit $?
       ;;
   verify_version)
@@ -71,7 +61,7 @@ case "${command}" in
       exit $?
       ;;
   itest)
-      source_imagerc
+      source_imagerc "${image_dir}"  "${imagerc_filename}"
       echo "Testing image: ${AIT_DOCKER_IMAGE_NAME}:${AIT_DOCKER_IMAGE_TAG}"
       echo "IDE_DOCKER_IMAGE=\"${AIT_DOCKER_IMAGE_NAME}:${AIT_DOCKER_IMAGE_TAG}\"" > ./Idefile.to_be_tested
       echo "IDE_IDENTITY=\"$(pwd)/test/integration/identities/full\"" >> ./Idefile.to_be_tested
