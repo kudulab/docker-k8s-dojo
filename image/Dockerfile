@@ -1,8 +1,8 @@
 FROM docker-registry.ai-traders.com/k8s-ide:temp
 
 # this must be the same as used by infra-kubernetes
-ENV KUBERNETES_VERSION=1.6.12
-ENV HELM_VERSION=2.5.1
+ENV KUBERNETES_VERSION=1.7.10
+ENV HELM_VERSION=2.6.2
 
 # * wget, nano, openssh-client, curl, curl-dev are installed just in case
 # * ca-certificates are needed to wget helm tar.gz

@@ -15,7 +15,7 @@ load '/opt/bats-assert/load.bash'
   run /bin/bash -c "ide --idefile Idefile.to_be_tested \"kubectl version\""
   # this is printed on test failure
   echo "output: $output"
-  assert_line --partial "1.6.12"
+  assert_line --partial "1.7.10"
   assert_equal "$status" 0
 }
 @test "Remote Kubernetes cluster is accessible" {
@@ -30,7 +30,7 @@ load '/opt/bats-assert/load.bash'
   run /bin/bash -c "ide --idefile Idefile.to_be_tested \"helm version\""
   # this is printed on test failure
   echo "output: $output"
-  assert_line --partial "2.5.1"
+  assert_line --partial "2.6.2"
   assert_equal "$status" 0
 }
 @test "Helm was correctly initialized" {
