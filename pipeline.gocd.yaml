@@ -1,6 +1,6 @@
 pipelines:
   docker-k8s-ide:
-    group: platform
+    group: kubernetes
     label_template: "${git[:8]}"
     materials:
       git:
