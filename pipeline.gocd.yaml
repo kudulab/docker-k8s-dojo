@@ -13,7 +13,8 @@ pipelines:
           clean_workspace: true
           jobs:
             build:
-              elastic_profile_id: w.c1.m1024.e5
+              resources:
+                - docker_builder
               artifacts:
                 - build:
                     source: image/imagerc
@@ -28,17 +29,13 @@ pipelines:
                     command: /bin/bash
                     arguments:
                       - -c
-                      - ./tasks build_cfg && ./tasks test_cfg
-                - exec:
-                    command: /bin/bash
-                    arguments:
-                      - -c
-                      - ./tasks build_cfg && ops_docker_push=true ./tasks build
+                      - ops_docker_push=true ./tasks build
       - itest:
           clean_workspace: true
           jobs:
             itest:
-              elastic_profile_id: w.c1.m1024.e5
+              resources:
+                - docker_builder
               tasks:
                 - fetch:
                     stage: build
@@ -55,7 +52,8 @@ pipelines:
           clean_workspace: true
           jobs:
             code:
-              elastic_profile_id: w.c1.m1024.e5
+              resources:
+                - docker_builder
               tasks:
                 - exec:
                     command: /bin/bash
@@ -66,7 +64,8 @@ pipelines:
           clean_workspace: true
           jobs:
             docker_image:
-              elastic_profile_id: w.c1.m1024.e5
+              resources:
+                - docker_builder
               tasks:
                 - fetch:
                     stage: build

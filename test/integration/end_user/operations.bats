@@ -15,7 +15,7 @@ load '/opt/bats-assert/load.bash'
   run /bin/bash -c "ide --idefile Idefile.to_be_tested \"kubectl version\""
   # this is printed on test failure
   echo "output: $output"
-  assert_line --partial "1.7.10"
+  assert_line --partial "1.10.1"
   assert_equal "$status" 0
 }
 @test "Remote Kubernetes cluster is accessible" {
@@ -30,7 +30,7 @@ load '/opt/bats-assert/load.bash'
   run /bin/bash -c "ide --idefile Idefile.to_be_tested \"helm version\""
   # this is printed on test failure
   echo "output: $output"
-  assert_line --partial "2.6.2"
+  assert_line --partial "2.9.0-rc4"
   assert_equal "$status" 0
 }
 @test "Helm was correctly initialized" {
@@ -46,4 +46,12 @@ load '/opt/bats-assert/load.bash'
   echo "output: $output"
   assert_line --partial "usage: ssh"
   assert_equal "$status" 255
+}
+@test "custom k8s master endpoint can be used" {
+  run /bin/bash -c "export K8S_ENDPOINT=123 && ide --idefile Idefile.to_be_tested \"cat /home/ide/.kube/config\""
+  # this is printed on test failure
+  echo "output: $output"
+  refute_output "http://k8s.ai-traders.com:8080"
+  assert_output --partial "server: 123"
+  assert_equal "$status" 0
 }

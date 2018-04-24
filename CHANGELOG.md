@@ -1,3 +1,9 @@
+### 0.3.5 (2018-Apr-24)
+
+* Helm 2.9.0-rc4 #12502
+* Kubernetes 1.10.1 #12502
+* dev: do not built tmp docker image
+
 ### 0.3.4 (2017-Nov-18)
 
 * Helm 2.6.2 #11922

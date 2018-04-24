@@ -12,10 +12,8 @@ source ./docker-ops
 # This goes as last in order to let end user variables override default values
 releaser_init
 
-image_name="docker-registry.ai-traders.com/k8s-ide"
-# since this task may happen directly on workstation/go-agent,
-# let's name the image differently to other temp images
-tmp_image="${image_name}:temp"
+image_name="k8s-ide"
+registry="docker-registry.ai-traders.com"
 image_dir="./image"
 imagerc_filename="imagerc"
 
@@ -36,28 +34,10 @@ case "${command}" in
       verify_version_for_release
       exit $?
       ;;
-  build_cfg)
-      # builds the ide configs image
-      image_name_no_registry="${image_name/docker-registry.ai-traders.com\//}"
-      production_image_tag="$(get_next_oversion)"
-      cd "${image_dir}"
-      docker build -f Dockerfile_ide_configs -t "${tmp_image}" --build-arg this_image_name_arg=${image_name_no_registry} --build-arg this_image_tag_arg=${production_image_tag} .
-      exit $?
-      ;;
-  test_cfg)
-      echo "Testing image: ${tmp_image}"
-      # do not use the production ENTRYPOINT
-      echo "IDE_DOCKER_IMAGE=\"${tmp_image}\"" > ./Idefile.to_be_tested_configs
-      echo "IDE_DOCKER_OPTIONS=\"--entrypoint=/bin/bash\"" >> ./Idefile.to_be_tested_configs
-      echo "IDE_IDENTITY=\"$(pwd)/test/integration/identities/full\"" >> ./Idefile.to_be_tested_configs
-      echo "IDE_WORK=$(pwd)/test/integration/test_ide_work" >> Idefile.to_be_tested_configs
-      time bats "$(pwd)/test/integration/configs"
-      exit $?
-      ;;
   build)
-      ./tasks build_cfg
-      # pwd is the ${image_dir}
-      docker_build "./image" "${imagerc_filename}" "${image_name}" "$2"
+      production_image_tag=$(get_last_version_from_changelog "${changelog_file}")
+      docker_build_options="--build-arg this_image_name_arg=${image_name} --build-arg this_image_tag_arg=${production_image_tag}"
+      docker_build "${image_dir}" "${imagerc_filename}" "${registry}/${image_name}" "$2"
       exit $?
       ;;
   itest)
