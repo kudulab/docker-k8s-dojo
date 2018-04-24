@@ -1,3 +1,10 @@
+### 0.3.6 (2018-Apr-24)
+
+* newer base image `alpine:3.7`
+* no need to add alpine repository: http://dl-cdn.alpinelinux.org/alpine/edge/community.
+ Adding it results in:
+ WARNING: This apk-tools is OLD! Some packages might not function properly
+
 ### 0.3.5 (2018-Apr-24)
 
 * Helm 2.9.0-rc4 #12502
