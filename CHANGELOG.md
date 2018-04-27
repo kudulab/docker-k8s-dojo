@@ -1,3 +1,7 @@
+### 0.3.7 (2018-Apr-27)
+
+* Helm 2.9.0
+
 ### 0.3.6 (2018-Apr-24)
 
 * newer base image `alpine:3.7`

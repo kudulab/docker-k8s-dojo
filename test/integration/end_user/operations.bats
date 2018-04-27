@@ -30,7 +30,7 @@ load '/opt/bats-assert/load.bash'
   run /bin/bash -c "ide --idefile Idefile.to_be_tested \"helm version\""
   # this is printed on test failure
   echo "output: $output"
-  assert_line --partial "2.9.0-rc4"
+  assert_line --partial "2.9.0"
   assert_equal "$status" 0
 }
 @test "Helm was correctly initialized" {
