@@ -2,6 +2,7 @@
 
 * in kubeconfig use tls certificates #12953
 * add variable: KUBE_USER
+* make integration tests independent from our production kubernetes cluster
 
 ### 0.3.7 (2018-Apr-27)
 

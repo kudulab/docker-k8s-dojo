@@ -50,6 +50,15 @@ case "${command}" in
       time bats "$(pwd)/test/integration/end_user"
       exit $?
       ;;
+  example)
+      source_imagerc "${image_dir}"  "${imagerc_filename}"
+      echo "Testing image: ${AIT_DOCKER_IMAGE_NAME}:${AIT_DOCKER_IMAGE_TAG}"
+      echo "IDE_DOCKER_IMAGE=\"${AIT_DOCKER_IMAGE_NAME}:${AIT_DOCKER_IMAGE_TAG}\"" > ./Idefile.example
+      echo "IDE_IDENTITY=\"$(pwd)/test/integration/identities/full\"" >> ./Idefile.example
+      echo "IDE_WORK=$(pwd)/test/integration/test_ide_work" >> ./Idefile.example
+      echo "export KUBE_USER=dummy" >> ./Idefile.example
+      ide --idefile Idefile.example
+      ;;
   release)
       verify_version_for_release
       git_tag_from_oversion

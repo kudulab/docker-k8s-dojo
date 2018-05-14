@@ -16,22 +16,16 @@ load '/opt/bats-assert/load.bash'
   # this is printed on test failure
   echo "output: $output"
   assert_line --partial "1.10.1"
-  assert_equal "$status" 0
-}
-@test "Remote Kubernetes cluster is accessible" {
-  run /bin/bash -c "ide --idefile Idefile.to_be_tested \"kubectl cluster-info\""
-  # this is printed on test failure
-  echo "output: $output"
-  assert_line --partial "Kubernetes master"
-  assert_line --partial "http://k8s.ai-traders.com:8080"
-  assert_equal "$status" 0
+  # 1, because we use fake tls certificates
+  assert_equal "$status" 1
 }
 @test "correct Helm version is installed" {
-  run /bin/bash -c "ide --idefile Idefile.to_be_tested \"helm version\""
+  run /bin/bash -c "ide --idefile Idefile.to_be_tested \"timeout -t 1 helm version\""
   # this is printed on test failure
   echo "output: $output"
   assert_line --partial "2.9.0"
-  assert_equal "$status" 0
+  # do not assert exit status, this command hangs and will be time-outed, because
+  # we use fake tls certificates
 }
 @test "Helm was correctly initialized" {
   run /bin/bash -c "ide --idefile Idefile.to_be_tested \"ls -la /home/ide\""
