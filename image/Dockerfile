@@ -19,15 +19,15 @@ RUN apk add --no-cache wget nano openssh-client curl curl-dev ca-certificates ba
   chown ide:ide /home/ide/.bashrc
 
 # this must be the same as used by infra-kubernetes
-ENV KUBERNETES_VERSION=1.10.1
+ENV KUBERNETES_VERSION=1.10.2
 ENV HELM_VERSION=2.9.0
 
 # install kubectl
-RUN cd /tmp/ && wget http://os2.ai-traders.com:6780/swift/v1/k8s-binaries/v${KUBERNETES_VERSION}/kubernetes-server-linux-amd64.tar.gz &&\
+RUN cd /tmp/ && wget -O kubectl.tar.gz http://os2.ai-traders.com:6780/swift/v1/k8s-binaries/v${KUBERNETES_VERSION}/kubectl.tar.gz &&\
   mkdir /tmp/kubernetes && cd /tmp/kubernetes &&\
-  tar -xzf "/tmp/kubernetes-server-linux-amd64.tar.gz" &&\
-  mv /tmp/kubernetes/kubernetes/server/bin/kubectl /usr/local/bin/ && chmod 755 /usr/local/bin/kubectl &&\
-  rm /tmp/kubernetes-server-linux-amd64.tar.gz &&\
+  tar -xzf "/tmp/kubectl.tar.gz" &&\
+  mv /tmp/kubernetes/kubectl /usr/local/bin/ && chmod 755 /usr/local/bin/kubectl &&\
+  rm /tmp/kubectl.tar.gz &&\
   cd / && rm -r /tmp/kubernetes
 
 # install Helm

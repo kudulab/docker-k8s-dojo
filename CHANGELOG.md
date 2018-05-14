@@ -3,6 +3,8 @@
 * in kubeconfig use tls certificates #12953
 * add variable: KUBE_USER
 * make integration tests independent from our production kubernetes cluster
+* kubectl 1.10.2
+* wget only kubectl.tar.gz
 
 ### 0.3.7 (2018-Apr-27)
 
