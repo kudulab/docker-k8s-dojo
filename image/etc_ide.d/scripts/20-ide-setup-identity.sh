@@ -5,6 +5,14 @@
 # Fails if any required secret or configuration file is missing.
 ###########################################################################
 
+if [ ! -d "${ide_identity}/.kube" ]; then
+  echo "ERROR: ${ide_identity}/.kube does not exist"
+  exit 1
+else
+  mkdir -p "${ide_home}/.kube/"
+  cp -v "${ide_identity}/.kube"/* "${ide_home}/.kube/"
+fi
+
 # copy the directory with all the secrets, particulary id_rsa
 if [ ! -d "${ide_identity}/.ssh" ]; then
   echo "WARN: ${ide_identity}/.ssh does not exist"

@@ -46,6 +46,7 @@ case "${command}" in
       echo "IDE_DOCKER_IMAGE=\"${AIT_DOCKER_IMAGE_NAME}:${AIT_DOCKER_IMAGE_TAG}\"" > ./Idefile.to_be_tested
       echo "IDE_IDENTITY=\"$(pwd)/test/integration/identities/full\"" >> ./Idefile.to_be_tested
       echo "IDE_WORK=$(pwd)/test/integration/test_ide_work" >> ./Idefile.to_be_tested
+      echo "export KUBE_USER=dummy" >> ./Idefile.to_be_tested
       time bats "$(pwd)/test/integration/end_user"
       exit $?
       ;;

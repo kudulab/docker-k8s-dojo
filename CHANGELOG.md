@@ -1,3 +1,8 @@
+### 0.4.0 (2018-May-14)
+
+* in kubeconfig use tls certificates #12953
+* add variable: KUBE_USER
+
 ### 0.3.7 (2018-Apr-27)
 
 * Helm 2.9.0
