@@ -10,7 +10,7 @@ if [ ! -d "${ide_identity}/.kube" ]; then
   exit 1
 else
   mkdir -p "${ide_home}/.kube/"
-  cp -v "${ide_identity}/.kube"/* "${ide_home}/.kube/"
+  cp -vr "${ide_identity}/.kube"/* "${ide_home}/.kube/"
 fi
 
 # copy the directory with all the secrets, particulary id_rsa

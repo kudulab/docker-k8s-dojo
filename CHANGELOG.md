@@ -1,3 +1,7 @@
+### 0.4.1 (2018-May-15)
+
+* fix: the previous version did not work when there were directories in `~/.kube`
+
 ### 0.4.0 (2018-May-14)
 
 * in kubeconfig use tls certificates #12953
