@@ -1,3 +1,7 @@
+### 0.4.2 (2018-May-17)
+
+* only use verbose copying of ~/.kube/ files (cp -vr) if AIT_DEBUG is set
+
 ### 0.4.1 (2018-May-15)
 
 * fix: the previous version did not work when there were directories in `~/.kube`
