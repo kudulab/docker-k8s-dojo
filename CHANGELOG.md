@@ -1,3 +1,7 @@
+### 0.4.3 (2018-May-20)
+
+* set K8S_ENDPOINT to point to k8s2.ai-traders.com #13024
+
 ### 0.4.2 (2018-May-17)
 
 * only use verbose copying of ~/.kube/ files (cp -vr) if AIT_DEBUG is set

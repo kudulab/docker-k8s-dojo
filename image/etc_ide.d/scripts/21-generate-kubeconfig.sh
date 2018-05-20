@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-export K8S_ENDPOINT="${K8S_ENDPOINT:-https://k8s.ai-traders.com:6443}"
+export K8S_ENDPOINT="${K8S_ENDPOINT:-https://k8s2.ai-traders.com:6443}"
 echo "Using K8S_ENDPOINT=${K8S_ENDPOINT}"
 export KUBE_USER="${KUBE_USER:-${IDE_USER}}"
 echo "Using KUBE_USER=${KUBE_USER}"
