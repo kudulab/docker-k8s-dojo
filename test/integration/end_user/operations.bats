@@ -15,7 +15,7 @@ load '/opt/bats-assert/load.bash'
   run /bin/bash -c "ide --idefile Idefile.to_be_tested \"kubectl version\""
   # this is printed on test failure
   echo "output: $output"
-  assert_line --partial "1.10.2"
+  assert_line --partial "1.10.3"
   # 1, because we use fake tls certificates
   assert_equal "$status" 1
 }

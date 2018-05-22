@@ -1,3 +1,7 @@
+### 0.4.4 (2018-May-22)
+
+* kubernetes 1.10.3
+
 ### 0.4.3 (2018-May-20)
 
 * set K8S_ENDPOINT to point to k8s2.ai-traders.com #13024

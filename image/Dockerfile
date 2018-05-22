@@ -19,7 +19,7 @@ RUN apk add --no-cache wget nano openssh-client curl curl-dev ca-certificates ba
   chown ide:ide /home/ide/.bashrc
 
 # this must be the same as used by infra-kubernetes
-ENV KUBERNETES_VERSION=1.10.2
+ENV KUBERNETES_VERSION=1.10.3
 ENV HELM_VERSION=2.9.0
 
 # install kubectl
