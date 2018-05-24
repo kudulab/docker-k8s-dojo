@@ -9,11 +9,10 @@ if [ ! -d "${ide_identity}/.kube" ]; then
   echo "ERROR: ${ide_identity}/.kube does not exist"
   exit 1
 else
-  mkdir -p "${ide_home}/.kube/"
   if [[ "${AIT_DEBUG}" != "true" ]]; then
-	cp -r "${ide_identity}/.kube"/* "${ide_home}/.kube/"
+	   cp -r "${ide_identity}/.kube" "${ide_home}"
   else
-	cp -vr "${ide_identity}/.kube"/* "${ide_home}/.kube/"
+	   cp -vr "${ide_identity}/.kube" "${ide_home}"
   fi
 fi
 

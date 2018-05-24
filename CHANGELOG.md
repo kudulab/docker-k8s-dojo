@@ -1,3 +1,7 @@
+### 0.4.5 (2018-May-24)
+
+* fix: make this work also if ~/.kube contains no directories
+
 ### 0.4.4 (2018-May-22)
 
 * kubernetes 1.10.3
