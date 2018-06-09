@@ -15,6 +15,7 @@ else
 	   cp -vr "${ide_identity}/.kube" "${ide_home}"
   fi
 fi
+chown ide:ide -R "${ide_home}/.kube"
 
 # copy the directory with all the secrets, particulary id_rsa
 if [ ! -d "${ide_identity}/.ssh" ]; then

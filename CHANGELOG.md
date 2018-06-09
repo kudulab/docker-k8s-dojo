@@ -1,3 +1,7 @@
+### 0.4.6 (2018-Jun-09)
+
+* fix setting ownership of ~/.kube
+
 ### 0.4.5 (2018-May-24)
 
 * fix: make this work also if ~/.kube contains no directories
