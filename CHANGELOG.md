@@ -1,6 +1,7 @@
 ### 0.4.6 (2018-Jun-09)
 
 * fix setting ownership of ~/.kube
+* use ide image scripts from ide 0.10.3 so that IDE_WORK_INNER has a default value #12045
 
 ### 0.4.5 (2018-May-24)
 
