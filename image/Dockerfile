@@ -15,8 +15,9 @@ RUN apk add --no-cache bash shadow sudo git && \
 # have to be sourced which will happen on running bash login shell.
 # And install colorful bash prompt.
 COPY bashrc /home/ide/.bashrc
+COPY profile /home/ide/.profile
 RUN apk add --no-cache wget nano openssh-client curl curl-dev ca-certificates bash-completion &&\
-  chown ide:ide /home/ide/.bashrc
+  chown ide:ide -R /home/ide
 
 # this must be the same as used by infra-kubernetes
 ENV KUBERNETES_VERSION=1.10.3

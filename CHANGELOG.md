@@ -1,3 +1,7 @@
+### 0.4.7 (2018-Jul-01)
+
+* use conventional ide configuration scripts
+
 ### 0.4.6 (2018-Jun-09)
 
 * fix setting ownership of ~/.kube
