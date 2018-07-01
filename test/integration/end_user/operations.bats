@@ -15,7 +15,7 @@ load '/opt/bats-assert/load.bash'
   run /bin/bash -c "ide --idefile Idefile.to_be_tested \"kubectl version\""
   # this is printed on test failure
   echo "output: $output"
-  assert_line --partial "1.10.3"
+  assert_line --partial "1.10.4"
   # 1, because we use fake tls certificates
   assert_equal "$status" 1
 }
@@ -23,7 +23,7 @@ load '/opt/bats-assert/load.bash'
   run /bin/bash -c "ide --idefile Idefile.to_be_tested \"timeout -t 1 helm version\""
   # this is printed on test failure
   echo "output: $output"
-  assert_line --partial "2.9.0"
+  assert_line --partial "2.9.1"
   # do not assert exit status, this command hangs and will be time-outed, because
   # we use fake tls certificates
 }

@@ -20,8 +20,8 @@ RUN apk add --no-cache wget nano openssh-client curl curl-dev ca-certificates ba
   chown ide:ide -R /home/ide
 
 # this must be the same as used by infra-kubernetes
-ENV KUBERNETES_VERSION=1.10.3
-ENV HELM_VERSION=2.9.0
+ENV KUBERNETES_VERSION=1.10.4
+ENV HELM_VERSION=2.9.1
 
 # install kubectl
 RUN cd /tmp/ && wget -O kubectl.tar.gz http://os2.ai-traders.com:6780/swift/v1/k8s-binaries/v${KUBERNETES_VERSION}/kubectl.tar.gz &&\

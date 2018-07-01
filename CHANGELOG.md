@@ -1,6 +1,8 @@
 ### 0.4.7 (2018-Jul-01)
 
 * use conventional ide configuration scripts
+* kubernetes 1.10.4
+* helm 2.9.1
 
 ### 0.4.6 (2018-Jun-09)
 
