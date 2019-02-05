@@ -2,6 +2,6 @@
 releaser
 docker-ops
 imager*
-Idefile.to_be_tested
-Idefile.to_be_tested_configs
-Idefile.example
+Dojofile.to_be_tested
+Dojofile.to_be_tested_configs
+Dojofile.example

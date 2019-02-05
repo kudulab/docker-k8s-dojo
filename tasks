@@ -1,77 +1,79 @@
 #!/bin/bash
 
 set -e
-if [[ ! -f ./releaser ]];then
-  wget --quiet http://http.archive.ai-traders.com/releaser/1.0.3/releaser
+if [[ ! -f ./releaser ]]; then
+  wget --quiet http://http.archive.ai-traders.com/releaser/1.1.0/releaser || { echo "Cannot download releaser, ignoring."; }
 fi
-source ./releaser
-if [[ ! -f ./docker-ops ]];then
-  wget --quiet http://http.archive.ai-traders.com/docker-ops/0.2.3/docker-ops
+if [[ -f ./releaser ]]; then
+  source ./releaser
 fi
-source ./docker-ops
-# This goes as last in order to let end user variables override default values
-releaser_init
+if [[ ! -f ./docker-ops ]]; then
+  wget --quiet http://http.archive.ai-traders.com/docker-ops/0.3.3/docker-ops || { echo "Cannot download docker-ops, ignoring."; }
+fi
+if [[ -f ./docker-ops ]]; then
+  source ./docker-ops
+fi
 
 image_name="k8s-ide"
-registry="docker-registry.ai-traders.com"
 image_dir="./image"
-imagerc_filename="imagerc"
+imagerc_basename="imagerc"
+image_registry="docker-registry.ai-traders.com"
 
 command="$1"
 case "${command}" in
   set_version)
       if [[ -n "$2" ]]; then
         next_version="$2"
-        set_version_in_changelog "${changelog_file}" "${next_version}"
-        set_next_oversion "${next_version}"
+        releaser::set_version_in_changelog "${changelog_file}" "${next_version}"
+        releaser::set_next_oversion "${next_version}"
       else
         next_version=$(get_next_oversion)
-        set_version_in_changelog "${changelog_file}" "${next_version}"
+        releaser::set_version_in_changelog "${changelog_file}" "${next_version}"
       fi
       exit $?
       ;;
   verify_version)
-      verify_version_for_release
+      releaser::verify_version_for_release
       exit $?
       ;;
   build)
-      production_image_tag=$(get_last_version_from_changelog "${changelog_file}")
-      docker_build_options="--build-arg this_image_name_arg=${image_name} --build-arg this_image_tag_arg=${production_image_tag}"
-      docker_build "${image_dir}" "${imagerc_filename}" "${registry}/${image_name}" "$2"
+      image_tag=$(git rev-parse HEAD)
+      ( set -x; cd "${image_dir}"; docker build -t "${image_name}:${image_tag}" .; )
+      docker_ops::create_imagerc "${image_dir}" "${imagerc_basename}" "${image_name}" "${image_tag}" "${image_registry}"
+      docker_ops::push_tmp "${image_name}" "${image_tag}" "${image_registry}"
       exit $?
       ;;
   itest)
-      source_imagerc "${image_dir}"  "${imagerc_filename}"
-      echo "Testing image: ${AIT_DOCKER_IMAGE_NAME}:${AIT_DOCKER_IMAGE_TAG}"
-      echo "IDE_DOCKER_IMAGE=\"${AIT_DOCKER_IMAGE_NAME}:${AIT_DOCKER_IMAGE_TAG}\"" > ./Idefile.to_be_tested
-      echo "IDE_IDENTITY=\"$(pwd)/test/integration/identities/full\"" >> ./Idefile.to_be_tested
-      echo "IDE_WORK=$(pwd)/test/integration/test_ide_work" >> ./Idefile.to_be_tested
-      echo "export KUBE_USER=dummy" >> ./Idefile.to_be_tested
+      docker_ops::source_imagerc "${image_dir}" "${imagerc_filename}"
+      echo "Testing image: ${AIT_DOCKER_IMAGE_URL}"
+      echo "DOJO_DOCKER_IMAGE=\"${AIT_DOCKER_IMAGE_URL}\"" > Dojofile.to_be_tested
+      echo "DOJO_IDENTITY_OUTER=\"$(pwd)/test/integration/identities/full\"" >> ./Dojofile.to_be_tested
+      echo "DOJO_WORK_OUTER=$(pwd)/test/integration/test_dojo_work" >> ./Dojofile.to_be_tested
+      echo "export KUBE_USER=dummy" >> ./Dojofile.to_be_tested
       time bats "$(pwd)/test/integration/end_user"
       exit $?
       ;;
   example)
-      source_imagerc "${image_dir}"  "${imagerc_filename}"
-      echo "Testing image: ${AIT_DOCKER_IMAGE_NAME}:${AIT_DOCKER_IMAGE_TAG}"
-      echo "IDE_DOCKER_IMAGE=\"${AIT_DOCKER_IMAGE_NAME}:${AIT_DOCKER_IMAGE_TAG}\"" > ./Idefile.example
-      echo "IDE_IDENTITY=\"$(pwd)/test/integration/identities/full\"" >> ./Idefile.example
-      echo "IDE_WORK=$(pwd)/test/integration/test_ide_work" >> ./Idefile.example
-      echo "export KUBE_USER=dummy" >> ./Idefile.example
-      ide --idefile Idefile.example
+      docker_ops::source_imagerc "${image_dir}" "${imagerc_filename}"
+      echo "Testing image: ${AIT_DOCKER_IMAGE_URL}"
+      echo "DOJO_DOCKER_IMAGE=\"${AIT_DOCKER_IMAGE_URL}\"" > ./Dojofile.example
+      echo "DOJO_IDENTITY_OUTER=\"$(pwd)/test/integration/identities/full\"" >> ./Dojofile.example
+      echo "DOJO_WORK_OUTER=$(pwd)/test/integration/test_dojo_work" >> ./Dojofile.example
+      echo "export KUBE_USER=dummy" >> ./Dojofile.example
+      dojo -c Dojofile.example
       ;;
   release)
-      verify_version_for_release
-      git_tag_from_oversion
-      old_version=$(get_next_oversion)
-      next_version=$(bump_patch_version "${old_version}")
-      set_next_oversion "${next_version}"
+      releaser::verify_version_for_release
+      releaser::git_tag_from_oversion
+      old_version=$(releaser::get_next_oversion)
+      next_version=$(releaser::bump_patch_version "${old_version}")
+      releaser::set_next_oversion "${next_version}"
       exit $?
       ;;
   publish)
       production_image_tag=$(get_last_version_from_changelog "${changelog_file}")
-      validate_version_is_semver "${production_image_tag}"
-      source_imagerc "${image_dir}"  "${imagerc_filename}"
-      docker_push "${AIT_DOCKER_IMAGE_NAME}" "${AIT_DOCKER_IMAGE_TAG}" "${production_image_tag}"
+      releaser::validate_version_is_semver "${production_image_tag}"
+      docker_ops::push_production "${image_dir}" "${imagerc_basename}" "${image_name}" "${production_image_tag}" "${image_registry}"
       exit $?
       ;;
   *)

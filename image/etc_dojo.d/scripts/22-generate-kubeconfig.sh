@@ -2,11 +2,11 @@
 
 export K8S_ENDPOINT="${K8S_ENDPOINT:-https://k8s2.ai-traders.com:6443}"
 echo "Using K8S_ENDPOINT=${K8S_ENDPOINT}"
-export KUBE_USER="${KUBE_USER:-${IDE_USER}}"
+export KUBE_USER="${KUBE_USER:-${DOJO_USER}}"
 echo "Using KUBE_USER=${KUBE_USER}"
 
-mkdir -p "${ide_home}/.kube"
-cat <<EOF >${ide_home}/.kube/config
+mkdir -p "${dojo_home}/.kube"
+cat <<EOF >${dojo_home}/.kube/config
 apiVersion: v1
 kind: Config
 preferences: {}
@@ -15,12 +15,12 @@ clusters:
 - name: default-cluster
   cluster:
     server: ${K8S_ENDPOINT}
-    certificate-authority: ${ide_home}/.kube/ca.crt
+    certificate-authority: ${dojo_home}/.kube/ca.crt
 users:
 - name: ${KUBE_USER}
   user:
-    client-certificate: ${ide_home}/.kube/${KUBE_USER}.crt
-    client-key: ${ide_home}/.kube/${KUBE_USER}.key
+    client-certificate: ${dojo_home}/.kube/${KUBE_USER}.crt
+    client-key: ${dojo_home}/.kube/${KUBE_USER}.key
 
 contexts:
 - name: default-context
@@ -31,4 +31,4 @@ contexts:
 current-context: default-context
 EOF
 
-chown ide:ide -R "${ide_home}/.kube/"
+chown dojo:dojo -R "${dojo_home}/.kube/"

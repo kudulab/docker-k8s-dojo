@@ -1,3 +1,6 @@
+* newer releaser and docker-ops
+* transform from ide docker image to dojo docker image #17139
+
 ### 0.4.7 (2018-Jul-01)
 
 * use conventional ide configuration scripts
