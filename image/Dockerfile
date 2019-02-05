@@ -24,12 +24,8 @@ ENV KUBERNETES_VERSION=1.10.4
 ENV HELM_VERSION=2.9.1
 
 # install kubectl
-RUN cd /tmp/ && wget -O kubectl.tar.gz http://os2.ai-traders.com:6780/swift/v1/k8s-binaries/v${KUBERNETES_VERSION}/kubectl.tar.gz &&\
-  mkdir /tmp/kubernetes && cd /tmp/kubernetes &&\
-  tar -xzf "/tmp/kubectl.tar.gz" &&\
-  mv /tmp/kubernetes/kubectl /usr/local/bin/ && chmod 755 /usr/local/bin/kubectl &&\
-  rm /tmp/kubectl.tar.gz &&\
-  cd / && rm -r /tmp/kubernetes
+RUN wget -O /usr/local/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/v${KUBERNETES_VERSION}/bin/linux/amd64/kubectl &&\
+  chmod 775 /usr/local/bin/kubectl
 
 # install Helm
 RUN mkdir -p /tmp/helm && cd /tmp/helm &&\
