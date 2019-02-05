@@ -1,3 +1,5 @@
+### 0.5.0 (2019-Feb-05)
+
 * newer releaser and docker-ops
 * transform from ide docker image to dojo docker image #17139
 * install kubectl from public location (faster and simpler)
