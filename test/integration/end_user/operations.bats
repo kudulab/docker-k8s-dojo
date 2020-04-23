@@ -8,7 +8,7 @@ load '/opt/bats-assert/load.bash'
   assert_line --partial "dojo init finished"
   assert_line --partial "/dojo/work"
   assert_line --partial "k8s-dojo"
-  refute_output "root"
+  refute_output --partial "root"
   assert_equal "$status" 0
 }
 @test "correct kubectl version is installed" {

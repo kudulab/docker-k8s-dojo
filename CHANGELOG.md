@@ -1,3 +1,5 @@
+### 1.0.0 (2020-Apr-23)
+
 * use base image alpine:3.11.5
 * use dojo scripts 0.8.0
 * run chmod on "${dojo_home}/.kube" directory once instead of twice

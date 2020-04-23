@@ -1,18 +1,21 @@
+format_version: 4
 pipelines:
-  docker-k8s-ide:
-    group: k8s
+  docker-k8s-dojo:
+    group: platform
     label_template: "${git[:8]}"
     materials:
       git:
-        git: "git@git.ai-traders.com:k8s/docker-k8s-ide.git"
-        branch: master
+        type: configrepo
         blacklist:
+          - "doc/**/*"
           - "**/*.md"
+    secure_variables:
+      VAULT_TOKEN: "AES:YXTgyP/2IiRQdB3BP9lJYQ==:olLh++B+aozJxElK+CZoWAkXsa/rSV3KsvVQxW9FUBc="
     stages:
       - build:
           clean_workspace: true
           jobs:
-            build:
+            docker_image:
               resources:
                 - docker_builder
               artifacts:
@@ -20,26 +23,21 @@ pipelines:
                     source: image/imagerc
                     destination:
               tasks:
-                - exec:
-                    command: /bin/bash
-                    arguments:
-                      - -c
-                      - ./tasks verify_version
-                - exec:
-                    command: /bin/bash
-                    arguments:
-                      - -c
-                      - ops_docker_push=true ./tasks build
+               - exec:
+                  command: /bin/bash
+                  arguments:
+                    - -c
+                    - ./tasks build
       - itest:
           clean_workspace: true
           jobs:
-            itest:
+            end_user:
               resources:
                 - docker_builder
               tasks:
                 - fetch:
                     stage: build
-                    job: build
+                    job: docker_image
                     is_file: yes
                     source: imagerc
                     destination: image/
@@ -69,7 +67,7 @@ pipelines:
               tasks:
                 - fetch:
                     stage: build
-                    job: build
+                    job: docker_image
                     is_file: yes
                     source: imagerc
                     destination: image/

@@ -1,6 +1,7 @@
 # docker-k8s-dojo
 
-Produces Dojo docker image with kubectl installed.
+A [Dojo](https://github.com/kudulab/dojo) docker image with kubectl.
+Main use case: to deploy services on top of k8s infrastructure.
 Based on alpine docker image.
 
 ## Usage
@@ -28,7 +29,6 @@ helm version
 
 By default, current directory in docker container is `/dojo/work`.
 
-Main use case: to deploy services on top of k8s infrastructure.
 
 ### Configuration
 Those files are used inside the docker image:
