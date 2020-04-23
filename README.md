@@ -1,6 +1,6 @@
 # docker-k8s-dojo
 
-A [Dojo](https://github.com/kudulab/dojo) docker image with kubectl.
+A [Dojo](https://github.com/kudulab/dojo) docker image with kubectl and Helm.
 Main use case: to deploy services on top of k8s infrastructure.
 Based on alpine docker image.
 
@@ -8,7 +8,7 @@ Based on alpine docker image.
 1. Install [Dojo](https://github.com/kudulab/dojo)
 2. Provide a Dojofile:
 ```
-DOJO_DOCKER_IMAGE="docker-registry.ai-traders.com/k8s-ide:latest"
+DOJO_DOCKER_IMAGE="kudulab/k8s-dojo:tagname"
 DOJO_DOCKER_OPTIONS=-e K8S_ENDPOINT="http://my-k8s.example.com:8080" \
   -e KUBE_USER="mykubeuser"
 # environment variable KUBE_USER defaults to ${DOJO_USER}
