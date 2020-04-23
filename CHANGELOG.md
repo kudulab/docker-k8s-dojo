@@ -1,4 +1,5 @@
 * use base image alpine:3.11.5
+* use dojo scripts 0.8.0
 
 ### 0.5.0 (2019-Feb-05)
 

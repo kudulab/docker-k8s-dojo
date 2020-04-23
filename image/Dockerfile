@@ -3,8 +3,9 @@ FROM alpine:3.11.5
 # For Dojo:
 # * entrypoint requires sudo and shadow
 # * git is needed to install dojo image configs
+ENV DOJO_VERSION=0.8.0
 RUN apk add --no-cache bash shadow sudo git && \
-  git clone --depth 1 -b 0.2.1 https://github.com/ai-traders/dojo.git /tmp/dojo_git &&\
+  git clone --depth 1 -b ${DOJO_VERSION} https://github.com/kudulab/dojo.git /tmp/dojo_git &&\
   /tmp/dojo_git/image_scripts/src/install.sh && \
   rm -r /tmp/dojo_git && \
   echo 'dojo ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
