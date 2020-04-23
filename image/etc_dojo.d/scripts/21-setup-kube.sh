@@ -6,6 +6,7 @@
 ###########################################################################
 
 if [ ! -d "${dojo_identity}/.kube" ]; then
+  # TODO: does it have to exist locally outside of cotnainer?
   echo "ERROR: ${dojo_identity}/.kube does not exist"
   exit 1
 else
@@ -15,4 +16,3 @@ else
 	   cp -vr "${dojo_identity}/.kube" "${dojo_home}"
   fi
 fi
-chown dojo:dojo -R "${dojo_home}/.kube"

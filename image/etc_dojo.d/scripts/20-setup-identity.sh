@@ -15,16 +15,6 @@ else
   echo "StrictHostKeyChecking no
   UserKnownHostsFile /dev/null
   ForwardAgent yes
-
-  Host git.ai-traders.com
-  User git
-  Port 2222
-  IdentityFile ${dojo_home}/.ssh/id_rsa
-
-  Host gogs.ai-traders.com
-  User git
-  Port 2222
-  IdentityFile ${dojo_home}/.ssh/id_rsa
   " > "${dojo_home}/.ssh/config"
 fi
 if [ ! -f "${dojo_identity}/.ssh/id_rsa" ]; then

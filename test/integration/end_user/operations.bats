@@ -42,10 +42,9 @@ load '/opt/bats-assert/load.bash'
   assert_equal "$status" 255
 }
 @test "custom k8s master endpoint can be used" {
-  run /bin/bash -c "export K8S_ENDPOINT=123 && dojo -c Dojofile.to_be_tested \"cat /home/dojo/.kube/config\""
+  run /bin/bash -c "dojo -c Dojofile.to_be_tested \"cat /home/dojo/.kube/config\""
   # this is printed on test failure
   echo "output: $output"
-  refute_output "http://k8s.ai-traders.com:8080"
-  assert_output --partial "server: 123"
+  assert_output --partial "server: http://my-k8s.example.com:8080"
   assert_equal "$status" 0
 }

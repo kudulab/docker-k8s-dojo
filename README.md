@@ -7,11 +7,18 @@ Based on alpine docker image.
 1. Install [Dojo](https://github.com/kudulab/dojo)
 2. Provide a Dojofile:
 ```
-K8S_ENDPOINT=http://10.1.1.123:8080 # defaults to http://k8s.ai-traders.com:8080
-KUBE_USER=go # defaults to ${DOJO_USER}
 DOJO_DOCKER_IMAGE="docker-registry.ai-traders.com/k8s-ide:latest"
+DOJO_DOCKER_OPTIONS=-e K8S_ENDPOINT="http://my-k8s.example.com:8080" \
+  -e KUBE_USER="mykubeuser"
+# environment variable KUBE_USER defaults to ${DOJO_USER}
 ```
-3. Run, example commands:
+
+3. Ensure mandatory directory exists locally. Nothing will be written to it outside of docker container:
+```
+mkdir -p ~/.kube
+```
+4. Run `dojo` to make Dojo run a Docker container.
+5. Inside the container you can run e.g.:
 ```bash
 kubectl version
 kubectl cluster-info
@@ -26,14 +33,11 @@ Main use case: to deploy services on top of k8s infrastructure.
 ### Configuration
 Those files are used inside the docker image:
 
-1. `~/.ssh/config` -- will be generated on docker container start
-2. `~/.ssh/id_rsa` -- it must exist locally, because it is a secret
- (but the whole `~/.ssh` will be copied)
-2. `~/.gitconfig` -- if exists locally, will be copied
-3. `~/.profile` -- will be generated on docker container start, in
-   order to ensure current directory is `/dojo/work`.
-
-The `~/.kube/config` file is provided.
+1. `~/.ssh` - if exists locally, will be copied
+1. `~/.ssh/config` - will be generated on docker container start
+1. `~/.gitconfig` - if exists locally, will be copied
+1. `~/.kube` - if exists locally, will be copied; otherwise results in error
+1. `~/.kube/config` - if not exists locally, will be generated on docker container start
 
 
 ## Development
