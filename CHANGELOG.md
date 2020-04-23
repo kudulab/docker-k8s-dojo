@@ -1,3 +1,5 @@
+* use base image alpine:3.11.5
+
 ### 0.5.0 (2019-Feb-05)
 
 * newer releaser and docker-ops

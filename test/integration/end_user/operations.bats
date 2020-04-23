@@ -20,7 +20,7 @@ load '/opt/bats-assert/load.bash'
   assert_equal "$status" 1
 }
 @test "correct Helm version is installed" {
-  run /bin/bash -c "dojo -c Dojofile.to_be_tested \"timeout -t 1 helm version\""
+  run /bin/bash -c "dojo -c Dojofile.to_be_tested \"timeout 1 helm version\""
   # this is printed on test failure
   echo "output: $output"
   assert_line --partial "2.9.1"

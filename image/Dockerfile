@@ -1,4 +1,4 @@
-FROM alpine:3.7
+FROM alpine:3.11.5
 
 # For Dojo:
 # * entrypoint requires sudo and shadow
