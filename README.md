@@ -1,11 +1,11 @@
-# docker-k8s-ide
+# docker-k8s-dojo
 
 Produces Dojo docker image with kubectl installed.
 Based on alpine docker image.
 
 ## Usage
-1. Install [Dojo](https://github.com/ai-traders/dojo)
-2. Provide an Dojofile:
+1. Install [Dojo](https://github.com/kudulab/dojo)
+2. Provide a Dojofile:
 ```
 K8S_ENDPOINT=http://10.1.1.123:8080 # defaults to http://k8s.ai-traders.com:8080
 KUBE_USER=go # defaults to ${DOJO_USER}
@@ -24,7 +24,7 @@ By default, current directory in docker container is `/dojo/work`.
 Main use case: to deploy services on top of k8s infrastructure.
 
 ### Configuration
-Those files are used inside gitide docker image:
+Those files are used inside the docker image:
 
 1. `~/.ssh/config` -- will be generated on docker container start
 2. `~/.ssh/id_rsa` -- it must exist locally, because it is a secret
@@ -43,18 +43,16 @@ The `~/.kube/config` file is provided.
 * Bats
 * Dojo
 
-### Tests
 
 ### Lifecycle
 1. In a feature branch:
-    * you make changes and add some docs to changelog (do not insert date or version)
-    * you build docker image: `./tasks build`
-    * and test it: `./tasks itest`
-1. You decide that your changes are ready and you:
+    * make changes and add some docs to changelog (do not insert date or version)
+    * build docker image: `./tasks build_local`
+    * test it: `./tasks itest`
+1. Decide that your changes are ready and if so:
     * merge into master branch
-    * run locally:
-      * `./tasks set_version` to set version from OVersion to changelog
+    * set version in changelog by running:
+      * `./tasks set_version`
       * or `./tasks set_version 1.2.3` to bump to a particular version
-        Version is bumped in Changelog, variables.sh file and OVersion backend
-    * push to master onto private git server
+    * push to master
 1. CI server (GoCD) tests and releases.
