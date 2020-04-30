@@ -1,3 +1,8 @@
+### 1.0.1 (2020-Apr-30)
+
+* kubectl 1.15.11
+* helm 3.2.0
+
 ### 1.0.0 (2020-Apr-23)
 
 * use base image alpine:3.11.5

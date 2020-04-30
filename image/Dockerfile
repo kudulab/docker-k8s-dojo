@@ -21,8 +21,8 @@ RUN apk add --no-cache wget nano openssh-client curl curl-dev ca-certificates ba
   chown dojo:dojo -R /home/dojo
 
 # this must be the same as used by infra-kubernetes
-ENV KUBERNETES_VERSION=1.10.4
-ENV HELM_VERSION=2.9.1
+ENV KUBERNETES_VERSION=1.15.11
+ENV HELM_VERSION=3.2.0
 
 # install kubectl
 RUN wget -O /usr/local/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/v${KUBERNETES_VERSION}/bin/linux/amd64/kubectl &&\
@@ -30,9 +30,10 @@ RUN wget -O /usr/local/bin/kubectl https://storage.googleapis.com/kubernetes-rel
 
 # install Helm
 RUN mkdir -p /tmp/helm && cd /tmp/helm &&\
-  wget -O helm.tar.gz --quiet https://kubernetes-helm.storage.googleapis.com/helm-v${HELM_VERSION}-linux-amd64.tar.gz &&\
+  wget -O helm.tar.gz --quiet https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz &&\
   tar -xvf helm.tar.gz && mv ./linux-amd64/helm /usr/local/bin/ &&\
-  sudo -E -H -u dojo /bin/bash -lc "helm init --client-only" &&\
+  sudo -E -H -u dojo /bin/bash -lc "helm repo add stable https://kubernetes-charts.storage.googleapis.com/ &&\
+    helm repo update" &&\
   rm -r /tmp/helm
 
 COPY etc_dojo.d/scripts/* /etc/dojo.d/scripts/

@@ -12,23 +12,22 @@ load '/opt/bats-assert/load.bash'
   assert_equal "$status" 0
 }
 @test "correct kubectl version is installed" {
-  run /bin/bash -c "dojo -c Dojofile.to_be_tested \"kubectl version\""
+  run /bin/bash -c "dojo -c Dojofile.to_be_tested \"kubectl version --client\""
   # this is printed on test failure
   echo "output: $output"
-  assert_line --partial "1.10.4"
-  # 1, because we use fake tls certificates
-  assert_equal "$status" 1
+  assert_line --partial "1.15.11"
+  assert_equal "$status" 0
 }
 @test "correct Helm version is installed" {
   run /bin/bash -c "dojo -c Dojofile.to_be_tested \"timeout 1 helm version\""
   # this is printed on test failure
   echo "output: $output"
-  assert_line --partial "2.9.1"
+  assert_line --partial "3.2.0"
   # do not assert exit status, this command hangs and will be time-outed, because
   # we use fake tls certificates
 }
 @test "Helm was correctly initialized" {
-  run /bin/bash -c "dojo -c Dojofile.to_be_tested \"ls -la /home/dojo\""
+  run /bin/bash -c "dojo -c Dojofile.to_be_tested \"ls -la /home/dojo/.cache\""
   # this is printed on test failure
   echo "output: $output"
   assert_line --partial "helm"
