@@ -21,7 +21,7 @@ RUN apk add --no-cache wget nano openssh-client curl curl-dev ca-certificates ba
   chown dojo:dojo -R /home/dojo
 
 # this must be the same as used by infra-kubernetes
-ENV KUBERNETES_VERSION=1.15.11
+ENV KUBERNETES_VERSION=1.16.8
 ENV HELM_VERSION=3.2.0
 
 # install kubectl
