@@ -47,3 +47,11 @@ load '/opt/bats-assert/load.bash'
   assert_output --partial "server: http://my-k8s.example.com:8080"
   assert_equal "$status" 0
 }
+@test "correct permissions are set" {
+  run /bin/bash -c "dojo -c Dojofile.to_be_tested \"stat -c \"%U:%G\" /home/dojo/.gitconfig && stat -c \"%U:%G\" /home/dojo/.ssh\""
+  # this is printed on test failure
+  echo "output: $output"
+  assert_output --partial "dojo:dojo"
+  refute_output --partial "root"
+  assert_equal "$status" 0
+}

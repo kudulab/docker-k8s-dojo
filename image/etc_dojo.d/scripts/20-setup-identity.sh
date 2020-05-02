@@ -16,17 +16,18 @@ else
   UserKnownHostsFile /dev/null
   ForwardAgent yes
   " > "${dojo_home}/.ssh/config"
-fi
-if [ ! -f "${dojo_identity}/.ssh/id_rsa" ]; then
-  echo "WARN: ${dojo_identity}/.ssh/id_rsa does not exist"
-else
-  for id_rsa_file in "${dojo_home}/.ssh/"*"id_rsa"; do
-    chown dojo:dojo "${id_rsa_file}"
-    chmod 0600 "${id_rsa_file}"
-  done
+  if [ ! -f "${dojo_identity}/.ssh/id_rsa" ]; then
+    echo "WARN: ${dojo_identity}/.ssh/id_rsa does not exist"
+  else
+    for id_rsa_file in "${dojo_home}/.ssh/"*"id_rsa"; do
+      chmod 0600 "${id_rsa_file}"
+    done
+  fi
+  chown dojo:dojo -R "${dojo_home}/.ssh"
 fi
 
 # not obligatory configuration file
 if [ -f "${dojo_identity}/.gitconfig" ]; then
   cp "${dojo_identity}/.gitconfig" "${dojo_home}"
+  chown dojo:dojo "${dojo_home}/.gitconfig"
 fi
