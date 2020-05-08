@@ -15,7 +15,7 @@ load '/opt/bats-assert/load.bash'
   run /bin/bash -c "dojo -c Dojofile.to_be_tested \"kubectl version --client\""
   # this is printed on test failure
   echo "output: $output"
-  assert_line --partial "1.16.8"
+  assert_line --partial "1.15.11"
   assert_equal "$status" 0
 }
 @test "correct Helm version is installed" {
