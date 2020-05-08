@@ -1,3 +1,7 @@
+### 1.1.1 (2020-May-08)
+
+* kubectl 1.16.8
+
 ### 1.1.0 (2020-May-08)
 
 * fix file permissions (gitconfig and ssh)
