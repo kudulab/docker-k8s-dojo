@@ -1,3 +1,4 @@
+### 1.1.0 (2020-May-08)
 
 * fix file permissions (gitconfig and ssh)
 * demand ~/.kube to be mounted
