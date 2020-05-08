@@ -1,6 +1,8 @@
 
 * kubectl 1.16.8
 * fix file permissions (gitconfig and ssh)
+* demand ~/.kube to be mounted
+* do not demand K8S_ENDPOINT variable
 
 ### 1.0.1 (2020-Apr-30)
 

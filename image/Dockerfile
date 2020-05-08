@@ -39,6 +39,8 @@ RUN mkdir -p /tmp/helm && cd /tmp/helm &&\
 COPY etc_dojo.d/scripts/* /etc/dojo.d/scripts/
 # COPY etc_dojo.d/variables/* /etc/dojo.d/variables/
 COPY inputrc /etc/inputrc
+COPY generate-kubeconfig.sh /usr/bin/generate-kubeconfig.sh
+RUN chmod +x /usr/bin/generate-kubeconfig.sh
 
 ENTRYPOINT ["/usr/bin/entrypoint.sh"]
 CMD ["/bin/bash"]

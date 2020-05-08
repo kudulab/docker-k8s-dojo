@@ -5,14 +5,10 @@
 # Fails if any required secret or configuration file is missing.
 ###########################################################################
 
-if [ ! -d "${dojo_identity}/.kube" ]; then
-  # TODO: does it have to exist locally outside of cotnainer?
-  echo "ERROR: ${dojo_identity}/.kube does not exist"
+if [ ! -d "${dojo_home}/.kube" ]; then
+  # This directory should exist locally (outside of the container), because
+  # you may be using some tool that generates kubeconfig and it would be gone
+  # after you remove the container
+  echo "ERROR: ${dojo_home}/.kube does not exist"
   exit 1
-else
-  if [[ "${AIT_DEBUG}" != "true" ]]; then
-	   cp -r "${dojo_identity}/.kube" "${dojo_home}"
-  else
-	   cp -vr "${dojo_identity}/.kube" "${dojo_home}"
-  fi
 fi

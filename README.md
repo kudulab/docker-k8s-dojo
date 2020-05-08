@@ -9,17 +9,15 @@ Based on alpine docker image.
 2. Provide a Dojofile:
 ```
 DOJO_DOCKER_IMAGE="kudulab/k8s-dojo:tagname"
-DOJO_DOCKER_OPTIONS=-e K8S_ENDPOINT="http://my-k8s.example.com:8080" \
-  -e KUBE_USER="mykubeuser"
-# environment variable KUBE_USER defaults to ${DOJO_USER}
+# This directory should exist locally (outside of the container), because
+# you may be using some tool that generates kubeconfig and it would be gone
+# after you remove the container.
+# You can mount any local directory, it doesn't need to be $HOME/.kube
+DOJO_DOCKER_OPTIONS="-v $HOME/.kube:/home/dojo/.kube"
 ```
 
-3. Ensure mandatory directory exists locally. Nothing will be written to it outside of docker container:
-```
-mkdir -p ~/.kube
-```
-4. Run `dojo` to make Dojo run a Docker container.
-5. Inside the container you can run e.g.:
+3. Run `dojo` to make Dojo run a Docker container.
+4. Inside the container you can run e.g.:
 ```bash
 kubectl version
 kubectl cluster-info
@@ -36,9 +34,17 @@ Those files are used inside the docker image:
 1. `~/.ssh` - if exists locally, will be copied
 1. `~/.ssh/config` - will be generated on docker container start
 1. `~/.gitconfig` - if exists locally, will be copied
-1. `~/.kube` - if exists locally, will be copied; otherwise results in error
-1. `~/.kube/config` - if not exists locally, will be generated on docker container start
+1. `~/.kube` - must be mounted; otherwise results in error
+1. `~/.kube/config` - if not exists, will be generated on docker container start if `K8S_ENDPOINT` is set
 
+You can set optional variables in Dojofile and they will be used to generate a kube config:
+```
+DOJO_DOCKER_OPTIONS=-e K8S_ENDPOINT="http://my-k8s.example.com:8080" \
+  -e KUBE_USER="mykubeuser"
+# environment variable KUBE_USER defaults to ${DOJO_USER}
+```
+
+You can also invoke it yourself: `/usr/bin/generate-kubeconfig.sh`.
 
 ## Development
 ### Dependencies
