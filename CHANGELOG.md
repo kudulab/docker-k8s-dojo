@@ -1,3 +1,7 @@
+### 1.1.2 (2020-Nov-16)
+
+* use Dojo image scripts version 0.10.2
+
 ### 1.1.1 (2020-May-08)
 
 * kubectl 1.16.8

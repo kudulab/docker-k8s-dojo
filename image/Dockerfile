@@ -3,7 +3,7 @@ FROM alpine:3.11.5
 # For Dojo:
 # * entrypoint requires sudo and shadow
 # * git is needed to install dojo image configs
-ENV DOJO_VERSION=0.8.0
+ENV DOJO_VERSION=0.10.2
 RUN apk add --no-cache bash shadow sudo git && \
   git clone --depth 1 -b ${DOJO_VERSION} https://github.com/kudulab/dojo.git /tmp/dojo_git &&\
   /tmp/dojo_git/image_scripts/src/install.sh && \
